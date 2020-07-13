@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    {% include 'partials/menu.html' %}
+    {% include 'partials/alertas.html' %}
+
+
+    <div class="row">
+        <div class="container text-center">
+            <img src="{% static 'img/acerto.png' %}" alt="...">
+        </div>
+    </div>
+    <div class="row">
+        <div class="container text-center">
+            <p>Muito obrigado pela compra, você dever receber um email em breve com as informações da compra.</p>
+        </div>
+    </div>
+
+
+
+    {% include 'partials/footer.html' %}
+
+{% endblock %}

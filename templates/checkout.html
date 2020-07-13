@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    {% include 'partials/menu.html' %}
+    {% include 'partials/alertas.html' %}
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <form action="{% url 'finaliza_compra' %}" method="post">
+                  {% csrf_token %}
+                  <h2>Informações Pessoais</h2>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="nome">Nome</label>
+                      <input type="text" class="form-control" id="nome" name="nome" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="sobrenome">Sobrenome</label>
+                      <input type="text" class="form-control" id="sobrenome" name="sobrenome" required>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-md-8">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                      </div>
+                      <div class="form-group col-md-4">
+                          <label for="cpf">CPF</label>
+                          <input type="text" class="form-control" id="cpf" name="cpf" required>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="telefone">Telefone para contato</label>
+                      <input type="text" class="form-control" id="telefone" name="telefone" required>
+                  </div>
+                  <h2>Informações de entrega</h2>
+                  <div class="form-group">
+                    <label for="endereco">Endereço para entrega</label>
+                    <input type="text" class="form-control" id="endereco" name="endereco" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="complementoEndereco">Complemento</label>
+                      <input type="text" class="form-control" id="complementoEndereco" name="complementoEndereco">
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="cidade">Cidade</label>
+                        <input type="text" class="form-control" id="cidade" name="cidade" required>
+                      </div>
+                      <div class="form-group col-md-6">
+                          <label for="bairro">Bairro</label>
+                          <input type="text" class="form-control" id="bairro" name="bairro" required>
+                      </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="pais">País</label>
+                        <input type="text" class="form-control" id="pais" name="pais" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="estado">Estado</label>
+                      <select id="estado" name="estado" class="form-control" required>
+                        <option>DF</option>
+                        <option>RJ</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="cep">CEP</label>
+                      <input type="text" class="form-control" id="cep" name="cep" required>
+                    </div>
+                  </div>
+                  <h2>Pagamento</h2>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="numeroCartao">Numero no cartão</label>
+                        <input type="text" class="form-control" id="numeroCartao" name="numeroCartao" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="nomeCartao">Nome no cartão</label>
+                        <input type="text" class="form-control" id="nomeCartao" name="nomeCartao" required>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-md-3">
+                          <label for="validadeCartao">Data de Validade</label>
+                          <input type="text" class="form-control" id="validadeCartao" name="validadeCartao" required>
+                      </div>
+                      <div class="form-group col-md-3">
+                          <label for="segurancaCartao">Código de segurança</label>
+                          <input type="text" class="form-control" id="segurancaCartao" name="segurancaCartao" required>
+                      </div>
+                  </div>
+
+                  <button type="submit" class="btn btn-dark">Finalizar</button>
+                </form>
+            </div>
+            <div class="col">
+                <h2>Resumo</h2>
+                <table class="table table-dark mt-4">
+                    <thead>
+                    </thead>
+                    <tbody>
+                        {% for product in order %}
+                            <tr>
+                                <td>{{ product.produto.nome_produto }}</td>
+                                <td>R$ {{ product.produto.preco }} x {{ product.quantidade }}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td>Total</td>
+                            <td>R$ {{ total }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    {% include 'partials/footer.html' %}
+
+{% endblock %}

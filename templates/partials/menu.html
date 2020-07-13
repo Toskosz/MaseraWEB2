@@ -1,0 +1,24 @@
+{% load static %}
+    <div class="container mb-5">
+        <div class="text-center">
+            <img class="rounded" src="{% static 'img/masera.png' %}" alt="">
+        </div>
+
+        <ul class="nav justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'index' %}">
+                <img src="{% static 'img/casa.png' %}" alt="">
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'resumo_carrinho' %}">
+                <img src="{% static 'img/carrinho.png' %}" alt="">
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'sobre' %}">
+                <img src="{% static 'img/sobre.png' %}" alt="">
+            </a>
+          </li>
+        </ul>
+    </div>

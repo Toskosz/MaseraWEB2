@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    {% include 'partials/menu.html' %}
+
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col">
+                <img src="{{ produto.foto_produto.url }}" alt="..." class="img-fluid">
+            </div>
+            <div class="col ml-5">
+                <h1>{{ produto.nome_produto }}</h1>
+                <h2>R${{ produto.preco }}</h2>
+                <form action="{% url 'add_produto_carrinho' produto.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="tamanho">Tamanho</label>
+                        <select id="tamanho" name="tamanho" class="form-control">
+                          <option>P</option>
+                          <option>M</option>
+                          <option>G</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-dark">Adicionar ao carrinho</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center mt-5">
+        {{ produto.descricao }}
+    </div>
+
+
+    {% include 'partials/footer.html' %}
+
+{% endblock %}

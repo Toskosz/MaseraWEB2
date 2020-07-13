@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    {% include 'partials/menu.html' %}
+    {% include 'partials/alertas.html' %}
+
+    {% if order %}
+        <div class="container">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Produto</th>
+                  <th>Tamanho</th>
+                  <th>Quantidade</th>
+                  <th>Preço</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for product in order %}
+                    <tr>
+                      <td style="white-space:nowrap;">
+                          <div class="container">
+                              <div class="row">
+                                  <div class="col">
+                                    <img src="{{ product.produto.foto_produto.url }}" alt="..." class="img-fluid w-75">
+                                  </div>
+                                  <div class="col">
+                                    <div class="row text-center">
+                                        {{ product.produto.nome_produto }}
+                                    </div>
+                                    <a class="btn btn-danger" href="{% url 'deleta_produto_carrinho' product.id %}" role="button">Remover</a>
+                                  </div>
+                              </div>
+                          </div>
+                      </td>
+                      <td class="text-center">{{ product.tamanho }}</td>
+                      <td class="text-center">{{ product.quantidade }}</td>
+                      <td class="text-center">R${{ product.produto.preco }}</td>
+                    </tr>
+                {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>R${{ total }}</td>
+                    </tr>
+              </tbody>
+            </table>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+
+                    </div>
+                    <div class="col text-right">
+                        <a class="btn btn-dark" href="{% url 'checkout' %}">Finalizar compra</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    {% else %}
+        <div class="container text-center">
+            <p>Você ainda não possui produtos!</p>
+        </div>
+    {% endif %}
+
+    {% include 'partials/footer.html' %}
+
+{% endblock %}

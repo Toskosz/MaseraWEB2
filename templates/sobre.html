@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    {% include 'partials/menu.html' %}
+
+    <div class="container pt-5">
+      <div class="row mb-5">
+        <div class="col">
+            <img src="{% static 'img/patolino.jpg' %}" alt="..." class="img-fluid">
+        </div>
+        <div class="col">
+            CEO
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col">
+            <img src="{% static 'img/pernalonga.jpg' %}" alt="..." class="img-fluid">
+        </div>
+        <div class="col">
+            Lead art designer
+        </div>
+      </div>
+    </div>
+
+    {% include 'partials/footer.html' %}
+
+{% endblock %}
