@@ -9,11 +9,11 @@ def index(request):
     dados = {
         'produtos': produtos
     }
-    return render(request, 'index.html', dados)
+    return render(request, 'loja/index.html', dados)
 
 
 def sobre(request):
-    return render(request, 'sobre.html')
+    return render(request, 'loja/sobre.html')
 
 
 def produto(request, produto_id):
@@ -21,5 +21,5 @@ def produto(request, produto_id):
     produto_a_exibir = {
         'produto': produto
     }
-    return render(request, 'produto.html', produto_a_exibir)
+    return render(request, 'loja/produto.html', produto_a_exibir)
 

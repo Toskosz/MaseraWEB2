@@ -17,9 +17,18 @@
                     <div class="form-group">
                         <label for="tamanho">Tamanho</label>
                         <select id="tamanho" name="tamanho" class="form-control">
-                          <option>P</option>
-                          <option>M</option>
-                          <option>G</option>
+                            {% if produto.tamanho_pequeno %}
+                                <option>P</option>
+                            {% else %}
+                            {% endif %}
+                            {% if produto.tamanho_medio %}
+                                <option>M</option>
+                            {% else %}
+                            {% endif %}
+                            {% if produto.tamanho_grande %}
+                                <option>G</option>
+                            {% else %}
+                            {% endif %}
                         </select>
                     </div>
                     <button type="submit" class="btn btn-dark">Adicionar ao carrinho</button>

@@ -64,7 +64,7 @@ def deleta_produto_carrinho(request, item_compra_id):
 def resumo_carrinho(request):
     compra_atual = atual_compra_pendente(request)
     if compra_atual == 0:
-        return render(request, 'carrinho.html')
+        return render(request, 'carrinho/carrinho.html')
     else:
         itens = list(compra_atual.get_itens_carrinho())
         total = compra_atual.get_total_carrinho()
@@ -72,7 +72,7 @@ def resumo_carrinho(request):
             'order': itens,
             'total': total
         }
-        return render(request, 'carrinho.html', dados)
+        return render(request, 'carrinho/carrinho.html', dados)
 
 
 @login_required()
@@ -84,7 +84,7 @@ def checkout(request, **kwargs):
         'order': itens,
         'total': total,
     }
-    return render(request, 'checkout.html', dados)
+    return render(request, 'carrinho/checkout.html', dados)
 
 
 @login_required()
@@ -123,7 +123,7 @@ def finaliza_compra(request):
 @login_required()
 def feedback(request, **kwargs):
     auth.logout(request)
-    return render(request, 'feedback.html')
+    return render(request, 'carrinho/feedback.html')
 
 
 def ajusta_estoque(request, lista):
@@ -135,26 +135,23 @@ def ajusta_estoque(request, lista):
                 return 0
             else:
                 produto.tamanho_grande -= item.quantidade
-                produto.save()
         elif item.tamanho == 'M':
             if item.quantidade > produto.tamanho_medio:
                 messages.error(request, '{} tamanho {} indisponível nesta quantidade!'.format(item.produto.nome_produto, item.tamanho))
                 return 0
             else:
                 produto.tamanho_medio -= item.quantidade
-                produto.save()
         elif item.tamanho == 'P':
             if item.quantidade > produto.tamanho_pequeno:
                 messages.error(request, '{} tamanho {} indisponível nesta quantidade!'.format(item.produto.nome_produto, item.tamanho))
                 return 0
             else:
                 produto.tamanho_pequeno -= item.quantidade
-                produto.save()
 
         if produto.tamanho_pequeno == 0 and produto.tamanho_medio == 0 and produto.tamanho_grande == 0:
             produto.disponibilidade = False
-            produto.publicado = False
-            produto.save()
+        produto.save()
+
     return 1
 
 

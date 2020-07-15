@@ -12,15 +12,24 @@
                     {% for produto in produtos %}
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div>
-                            <a href="{% url 'produto' produto.id %}">
+                                {% if produto.disponibilidade == 0 %}
                                 <div>
                                     <img src="{{ produto.foto_produto.url }}" alt="..." class="img-fluid">
                                     <div class="text-center">
-                                        <p class="text-body">{{ produto.categoria }} {{ produto.nome_produto }}</p>
-                                        <p class="text-body">R${{ produto.preco }}</p>
+                                        <p class="text-body">SOLD OUT</p>
                                     </div>
                                 </div>
-                            </a>
+                                {% else %}
+                                <a href="{% url 'produto' produto.id %}">
+                                    <div>
+                                        <img src="{{ produto.foto_produto.url }}" alt="..." class="img-fluid">
+                                        <div class="text-center">
+                                            <p class="text-body">{{ produto.categoria }} {{ produto.nome_produto }}</p>
+                                            <p class="text-body">R${{ produto.preco }}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}
