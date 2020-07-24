@@ -3,13 +3,13 @@ from .models import ItemCompra, Compra
 
 
 class ListandoCompras(admin.ModelAdmin):
-    list_display = ('comprador', 'finalizada', 'data_de_compra')
-    search_fields = ('comprador__nome',)
+    list_display = ('codigo_de_referencia', 'comprador', 'finalizada', 'data_de_compra')
+    search_fields = ('comprador__cpf', 'codigo_de_referencia',)
 
 
 class ListandoItens(admin.ModelAdmin):
     list_display = ('cliente', 'produto', 'tamanho', 'quantidade', 'data_de_compra')
-    search_fields = ('cliente__nome',)
+    search_fields = ('cliente__cpf',)
 
 
 admin.site.register(ItemCompra, ListandoItens)

@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'widget_tweaks',
+    'transacao',
     'carrinho',
     'clientes',
     'loja',

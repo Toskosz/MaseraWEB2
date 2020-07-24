@@ -16,6 +16,7 @@ def sobre(request):
     return render(request, 'loja/sobre.html')
 
 
+@login_required()
 def produto(request, produto_id):
     produto = get_object_or_404(Produto, pk=produto_id)
     produto_a_exibir = {

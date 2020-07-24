@@ -23,3 +23,7 @@ def login(request):
     return redirect(request.GET['next'])
 
 
+def relog(request):
+    auth.login(request, request.user)
+
+

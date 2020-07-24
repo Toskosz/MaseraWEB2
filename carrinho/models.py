@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from clientes.models import Cliente
 from loja.models import Produto
+from transacao.models import Transacao
 
 
 class ItemCompra(models.Model):
@@ -13,11 +14,12 @@ class ItemCompra(models.Model):
     quantidade = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.produto.nome_produto
+        return self.produto.nome_produto + " / " + str(self.tamanho) + " / " + str(self.quantidade)
 
 
 class Compra(models.Model):
     codigo_de_referencia = models.CharField(max_length=15)
+    transacao = models.ForeignKey(Transacao, on_delete=models.SET_NULL, null=True)
     comprador = models.ForeignKey(Cliente, on_delete=models.SET_NULL, null=True)
     finalizada = models.BooleanField(default=False)
     itens = models.ManyToManyField(ItemCompra)

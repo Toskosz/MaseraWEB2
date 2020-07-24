@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+{% load widget_tweaks %}
 
     {% include 'partials/menu.html' %}
     {% include 'partials/alertas.html' %}
@@ -9,89 +10,182 @@
     <div class="container">
         <div class="row">
             <div class="col-8">
-                <form action="{% url 'finaliza_compra' %}" method="post">
+                <form action="{% url 'cofirma_compra' %}" method="post">
                   {% csrf_token %}
                   <h2>Informações Pessoais</h2>
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                      <label for="nome">Nome</label>
-                      <input type="text" class="form-control" id="nome" name="nome" required>
+                        <label for="nome">{{ cliente_form.nome.label }}</label>
+                        {% render_field cliente_form.nome class+="form-control" %}
+<!--                      <input type="text" class="form-control" id="nome" name="nome" required>-->
                     </div>
+                    {% for error in cliente_form.nome.errors %}
+                        <section class="alert alert-danger" role="alert">
+                            {{ cliente_form.nome.errors }}
+                        </section>
+                    {% endfor %}
                     <div class="form-group col-md-6">
-                      <label for="sobrenome">Sobrenome</label>
-                      <input type="text" class="form-control" id="sobrenome" name="sobrenome" required>
+                        <label for="sobrenome">{{ cliente_form.sobrenome.label }}</label>
+                        {% render_field cliente_form.sobrenome class+="form-control" %}
+<!--                      <input type="text" class="form-control" id="sobrenome" name="sobrenome" required>-->
                     </div>
+                    {% for error in cliente_form.sobrenome.errors %}
+                        <section class="alert alert-danger" role="alert">
+                            {{ cliente_form.sobrenome.errors }}
+                        </section>
+                    {% endfor %}
                   </div>
                   <div class="form-row">
                       <div class="form-group col-md-8">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
+                          <label for="email">{{ cliente_form.email.label }}</label>
+                          {% render_field cliente_form.email class+="form-control" %}
+<!--                        <input type="email" class="form-control" id="email" name="email" required>-->
                       </div>
+                      {% for error in cliente_form.email.errors %}
+                        <section class="alert alert-danger" role="alert">
+                            {{ cliente_form.email.errors }}
+                        </section>
+                      {% endfor %}
                       <div class="form-group col-md-4">
-                          <label for="cpf">CPF</label>
-                          <input type="text" class="form-control" id="cpf" name="cpf" required>
+                          <label for="cpf">{{ cliente_form.cpf.label }}</label>
+                          {% render_field cliente_form.cpf class+="form-control" %}
+<!--                          <input type="text" class="form-control" id="cpf" name="cpf" required>-->
                       </div>
+                      {% for error in cliente_form.cpf.errors %}
+                        <section class="alert alert-danger" role="alert">
+                            {{ cliente_form.cpf.errors }}
+                        </section>
+                      {% endfor %}
                   </div>
                   <div class="form-group">
-                      <label for="telefone">Telefone para contato</label>
-                      <input type="text" class="form-control" id="telefone" name="telefone" required>
+                      <label for="telefone">{{ cliente_form.telefone.label }}</label>
+                      {% render_field cliente_form.telefone class+="form-control" %}
+<!--                      <input type="text" class="form-control" id="telefone" name="telefone" required>-->
                   </div>
+                  {% for error in cliente_form.telefone.errors %}
+                    <section class="alert alert-danger" role="alert">
+                        {{ cliente_form.telefone.errors }}
+                    </section>
+                  {% endfor %}
                   <h2>Informações de entrega</h2>
                   <div class="form-group">
-                    <label for="endereco">Endereço para entrega</label>
-                    <input type="text" class="form-control" id="endereco" name="endereco" required>
+                      <label for="endereco">{{ transacao_form.endereco.label }}</label>
+                      {% render_field transacao_form.endereco class+="form-control" %}
+<!--                    <input type="text" class="form-control" id="endereco" name="endereco" required>-->
                   </div>
+                  {% for error in transacao_form.endereco.errors %}
+                    <section class="alert alert-danger" role="alert">
+                        {{ transacao_form.endereco.errors }}
+                    </section>
+                  {% endfor %}
                   <div class="form-group">
-                      <label for="complementoEndereco">Complemento</label>
-                      <input type="text" class="form-control" id="complementoEndereco" name="complementoEndereco">
+                      <label for="complementoEndereco">{{ transacao_form.complemento.label }}</label>
+                      {% render_field transacao_form.complemento class="form-control" %}
+<!--                      <input type="text" class="form-control" id="complementoEndereco" name="complementoEndereco">-->
                   </div>
+                  {% for error in transacao_form.complemento.errors %}
+                    <section class="alert alert-danger" role="alert">
+                        {{ transacao_form.complemento.errors }}
+                    </section>
+                  {% endfor %}
                   <div class="form-row">
                       <div class="form-group col-md-6">
-                        <label for="cidade">Cidade</label>
-                        <input type="text" class="form-control" id="cidade" name="cidade" required>
+                          <label for="cidade">{{ transacao_form.cidade.label }}</label>
+                          {% render_field transacao_form.cidade class+="form-control" %}
+<!--                        <input type="text" class="form-control" id="cidade" name="cidade" required>-->
                       </div>
+                      {% for error in transacao_form.cidade.errors %}
+                        <section class="alert alert-danger" role="alert">
+                            {{ transacao_form.cidade.errors }}
+                        </section>
+                      {% endfor %}
                       <div class="form-group col-md-6">
-                          <label for="bairro">Bairro</label>
-                          <input type="text" class="form-control" id="bairro" name="bairro" required>
+                          <label for="bairro">{{ transacao_form.bairro.label }}</label>
+                          {% render_field transacao_form.bairro class+="form-control" %}
+<!--                          <input type="text" class="form-control" id="bairro" name="bairro" required>-->
                       </div>
+                      {% for error in transacao_form.bairro.errors %}
+                        <section class="alert alert-danger" role="alert">
+                            {{ transacao_form.bairro.errors }}
+                        </section>
+                      {% endfor %}
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label for="pais">País</label>
-                        <input type="text" class="form-control" id="pais" name="pais" required>
+                        <label for="pais">{{ transacao_form.pais.label }}</label>
+                        {% render_field transacao_form.pais class+="form-control" %}
+<!--                        <input type="text" class="form-control" id="pais" name="pais" required>-->
                     </div>
+                    {% for error in transacao_form.pais.errors %}
+                        <section class="alert alert-danger" role="alert">
+                            {{ transacao_form.pais.errors }}
+                        </section>
+                    {% endfor %}
                     <div class="form-group col-md-4">
-                      <label for="estado">Estado</label>
-                      <select id="estado" name="estado" class="form-control" required>
-                        <option>DF</option>
-                        <option>RJ</option>
-                      </select>
+                        <label for="estado">{{ transacao_form.estado.label }}</label>
+                        {% render_field transacao_form.estado class+="form-control" %}
+<!--                      <select id="estado" name="estado" class="form-control" required>-->
                     </div>
+                    {% for error in transacao_form.estado.errors %}
+                        <section class="alert alert-danger" role="alert">
+                            {{ transacao_form.estado.errors }}
+                        </section>
+                    {% endfor %}
                     <div class="form-group col-md-4">
-                      <label for="cep">CEP</label>
-                      <input type="text" class="form-control" id="cep" name="cep" required>
+                        <label for="cep">{{ transacao_form.cep.label }}</label>
+                        {% render_field transacao_form.cep class+="form-control" %}
+<!--                      <input type="text" class="form-control" id="cep" name="cep" required>-->
                     </div>
+                    {% for error in transacao_form.cep.errors %}
+                        <section class="alert alert-danger" role="alert">
+                            {{ transacao_form.cep.errors }}
+                        </section>
+                    {% endfor %}
                   </div>
                   <h2>Pagamento</h2>
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="numeroCartao">Numero no cartão</label>
-                        <input type="text" class="form-control" id="numeroCartao" name="numeroCartao" required>
+                        <label for="numeroCartao">{{ transacao_form.numeroCartao.label }}</label>
+                        {% render_field transacao_form.numeroCartao class+="form-control" %}
+<!--                        <input type="text" class="form-control" id="numeroCartao" name="numeroCartao" required>-->
                     </div>
+                    {% for error in transacao_form.numeroCartao.errors %}
+                        <section class="alert alert-danger" role="alert">
+                            {{ transacao_form.numeroCartao.errors }}
+                        </section>
+                    {% endfor %}
                     <div class="form-group col-md-6">
-                        <label for="nomeCartao">Nome no cartão</label>
-                        <input type="text" class="form-control" id="nomeCartao" name="nomeCartao" required>
+                        <label for="nomeCartao">{{ transacao_form.nomeCartao.label }}</label>
+                        {% render_field transacao_form.nomeCartao class+="form-control" %}
+<!--                        <input type="text" class="form-control" id="nomeCartao" name="nomeCartao" required>-->
                     </div>
+                    {% for error in transacao_form.nomeCartao.errors %}
+                        <section class="alert alert-danger" role="alert">
+                            {{ transacao_form.nomeCartao.errors }}
+                        </section>
+                    {% endfor %}
                   </div>
                   <div class="form-row">
-                      <div class="form-group col-md-3">
-                          <label for="validadeCartao">Data de Validade</label>
-                          <input type="text" class="form-control" id="validadeCartao" name="validadeCartao" required>
+                      <div class="form-group col-md-4">
+                          <label for="validadeCartao">{{ transacao_form.validadeCartao.label }}</label>
+                          {% render_field transacao_form.validadeCartao class+="form-control" %}
+<!--                          <input type="text" class="form-control" id="validadeCartao" name="validadeCartao" required>-->
                       </div>
-                      <div class="form-group col-md-3">
-                          <label for="segurancaCartao">Código de segurança</label>
-                          <input type="text" class="form-control" id="segurancaCartao" name="segurancaCartao" required>
+                      {% for error in transacao_form.validadeCartao.errors %}
+                        <section class="alert alert-danger" role="alert">
+                            {{ transacao_form.validadeCartao.errors }}
+                        </section>
+                      {% endfor %}
+                      <div class="form-group col-md-4">
+                          <label for="segurancaCartao">{{ transacao_form.segurancaCartao.label }}</label>
+                          {% render_field transacao_form.segurancaCartao class+="form-control" %}
+<!--                          <input type="text" class="form-control" id="segurancaCartao" name="segurancaCartao" required>-->
                       </div>
+                      {% for error in transacao_form.segurancaCartao.errors %}
+                        <section class="alert alert-danger" role="alert">
+                            {{ transacao_form.segurancaCartao.errors }}
+                        </section>
+                      {% endfor %}
                   </div>
 
                   <button type="submit" class="btn btn-dark">Finalizar</button>
