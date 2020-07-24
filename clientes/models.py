@@ -9,9 +9,11 @@ from loja.models import Produto
 
 class Cliente(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    nome = models.TextField(default=None, null=True)
-    sobrenome = models.TextField(default=None, null=True)
+    nome = models.CharField(max_length=200, default=' ', null=True)
+    sobrenome = models.CharField(max_length=200, default=' ', null=True)
     email = models.EmailField(default=None, null=True)
+    cpf = models.CharField(max_length=15, default=' ', null=True)
+    telefone = models.CharField(max_length=15, default=' ', null=True)
     # produtos = models.ManyToManyField(Produto, blank=True)
 
     def __str__(self):
