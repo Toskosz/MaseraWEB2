@@ -23,6 +23,7 @@ class Compra(models.Model):
     comprador = models.ForeignKey(Cliente, on_delete=models.SET_NULL, null=True)
     finalizada = models.BooleanField(default=False)
     itens = models.ManyToManyField(ItemCompra)
+    total = models.IntegerField(default=0)
     data_de_compra = models.DateTimeField(auto_now=True)
 
     def get_itens_carrinho(self):

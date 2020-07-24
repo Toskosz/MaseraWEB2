@@ -37,10 +37,11 @@ def add_produto_carrinho(request, produto_id):
     compra_usuario, status = Compra.objects.get_or_create(comprador=usuario, finalizada=False)
 
     compra_usuario.itens.add(item_compra)
+    compra_usuario.total += produto.preco
     if status:
         # gera codigo de referencia da compra
         compra_usuario.codigo_de_referencia = gera_id_compra()
-        compra_usuario.save()
+    compra_usuario.save()
 
     # mensagem de confirmação
     messages.success(request, 'Item adicionado ao carrinho')
@@ -49,6 +50,7 @@ def add_produto_carrinho(request, produto_id):
 
 @login_required()
 def deleta_produto_carrinho(request, item_compra_id):
+    compra_atual = atual_compra_pendente(request)
     item_to_delete = ItemCompra.objects.filter(pk=item_compra_id).first()
     if item_to_delete and item_to_delete.quantidade == 1:
         item_to_delete.delete()
@@ -56,6 +58,8 @@ def deleta_produto_carrinho(request, item_compra_id):
     else:
         item_to_delete.quantidade -= 1
         item_to_delete.save()
+    compra_atual.total -= item_to_delete.produto.preco
+    compra_atual.save()
     return redirect('resumo_carrinho')
 
 
@@ -66,7 +70,7 @@ def resumo_carrinho(request):
         return render(request, 'carrinho/carrinho.html')
     else:
         itens = list(compra_atual.get_itens_carrinho())
-        total = compra_atual.get_total_carrinho()
+        total = compra_atual.total
         dados = {
             'order': itens,
             'total': total

@@ -18,7 +18,7 @@ from datetime import datetime
 def checkout(request, **kwargs):
     compra = atual_compra_pendente(request)
     itens = list(compra.get_itens_carrinho())
-    total = compra.get_total_carrinho()
+    total = compra.total
     cliente_form = ClienteForms()
     transacao_form = TransacaoForms()
     dados = {
@@ -62,7 +62,7 @@ def cofirma_compra(request):
                     cliente_temp.nome = cliente_form.cleaned_data.get('nome')
                     cliente_temp.sobrenome = cliente_form.cleaned_data.get('sobrenome')
                     cliente_temp.email = cliente_form.cleaned_data.get('email')
-                    cliente_temp.telefone = cliente_form.cleaned_data('telefone')
+                    cliente_temp.telefone = cliente_form.cleaned_data.get('telefone')
                     cliente_temp.cpf = cliente_form.cleaned_data.get('cpf')
                     request.user.username = cliente_form.cleaned_data.get('cpf')
                     request.user.save()
@@ -88,6 +88,7 @@ def finaliza_compra(request):
     # transacao_arpovada é a função que vai utilizar a API de pagamento
     # if transacao_aprovada():
     #     ajusta_estoque(list(itens_comprados))
+    #     itens_comprados.update(data_de_compra=datetime.now())
     #     compra_atual.finalizada = True
     #     compra_atual.data_de_compra = datetime.now()
     #     # API DE EMAIL
