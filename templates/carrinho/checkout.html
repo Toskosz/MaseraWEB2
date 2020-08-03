@@ -40,22 +40,22 @@
                           <label for="email">{{ cliente_form.email.label }}</label>
                           {% render_field cliente_form.email class+="form-control" %}
 <!--                        <input type="email" class="form-control" id="email" name="email" required>-->
+                          {% for error in cliente_form.email.errors %}
+                            <section class="alert alert-danger" role="alert">
+                                {{ cliente_form.email.errors }}
+                            </section>
+                          {% endfor %}
                       </div>
-                      {% for error in cliente_form.email.errors %}
-                        <section class="alert alert-danger" role="alert">
-                            {{ cliente_form.email.errors }}
-                        </section>
-                      {% endfor %}
                       <div class="form-group col-md-4">
                           <label for="cpf">{{ cliente_form.cpf.label }}</label>
                           {% render_field cliente_form.cpf class+="form-control" %}
 <!--                          <input type="text" class="form-control" id="cpf" name="cpf" required>-->
+                          {% for error in cliente_form.cpf.errors %}
+                            <section class="alert alert-danger" role="alert">
+                                {{ cliente_form.cpf.errors }}
+                            </section>
+                          {% endfor %}
                       </div>
-                      {% for error in cliente_form.cpf.errors %}
-                        <section class="alert alert-danger" role="alert">
-                            {{ cliente_form.cpf.errors }}
-                        </section>
-                      {% endfor %}
                   </div>
                   <div class="form-group">
                       <label for="telefone">{{ cliente_form.telefone.label }}</label>
@@ -166,16 +166,24 @@
                     {% endfor %}
                   </div>
                   <div class="form-row">
-                      <div class="form-group col-md-4">
-                          <label for="validadeCartao">{{ transacao_form.validadeCartao.label }}</label>
-                          {% render_field transacao_form.validadeCartao class+="form-control" %}
-<!--                          <input type="text" class="form-control" id="validadeCartao" name="validadeCartao" required>-->
+                      <div class="form-group col-md-3">
+                          <label for="mesvalidade">{{ transacao_form.mesValidadeCartao.label }}</label>
+                          {% render_field transacao_form.mesValidadeCartao class+="form-control" %}
+                          {% for error in transacao_form.mesValidadeCartao.errors %}
+                            <section class="alert alert-danger" role="alert">
+                                {{ transacao_form.mesValidadeCartao.errors }}
+                            </section>
+                          {% endfor %}
                       </div>
-                      {% for error in transacao_form.validadeCartao.errors %}
-                        <section class="alert alert-danger" role="alert">
-                            {{ transacao_form.validadeCartao.errors }}
-                        </section>
-                      {% endfor %}
+                      <div class="form-group col-md-3">
+                          <label for="anovalidade">{{ transacao_form.anoValidadeCartao.label }}</label>
+                          {% render_field transacao_form.anoValidadeCartao class+="form-control" %}
+                          {% for error in transacao_form.anoValidadeCartao.errors %}
+                            <section class="alert alert-danger" role="alert">
+                                {{ transacao_form.anoValidadeCartao.errors }}
+                            </section>
+                          {% endfor %}
+                      </div>
                       <div class="form-group col-md-4">
                           <label for="segurancaCartao">{{ transacao_form.segurancaCartao.label }}</label>
                           {% render_field transacao_form.segurancaCartao class+="form-control" %}

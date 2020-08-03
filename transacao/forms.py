@@ -10,7 +10,8 @@ class TransacaoForms(forms.ModelForm):
         exclude = ['transacao_id']
         labels = {'endereco': 'Endereço para entrega', 'complemento': 'Complemento', 'cidade': 'Cidade', 'bairro': 'Bairro',
                   'pais': 'País', 'estado': 'Estado', 'cep': 'CEP', 'numeroCartao': 'Número no cartão', 'nomeCartao': 'Nome no cartão',
-                  'validadeCartao': 'Data de validade do cartão', 'segurancaCartao': 'Código de segurança do cartão'}
+                  'mesValidadeCartao': 'Mês vencimento', 'anoValidadeCartao': 'Ano vencimento',
+                  'segurancaCartao': 'Código de segurança do cartão'}
 
     def clean(self):
         endereco = self.cleaned_data.get('endereco')
@@ -22,7 +23,8 @@ class TransacaoForms(forms.ModelForm):
         cep = self.cleaned_data.get('cep')
         numeroCartao = self.cleaned_data.get('numeroCartao')
         nomeCartao = self.cleaned_data.get('nomeCartao')
-        validadeCartao = self.cleaned_data.get('validadeCartao')
+        mesValidadeCartao = self.cleaned_data.get('mesValidadeCartao')
+        anoValidadeCartao = self.cleaned_data.get('anoValidadeCartao')
         segurancaCartao = self.cleaned_data.get('segurancaCartao')
         lista_de_erros = {}
         campo_vazio(endereco, 'endereco', lista_de_erros)
@@ -31,15 +33,15 @@ class TransacaoForms(forms.ModelForm):
         campo_vazio(bairro, 'bairro', lista_de_erros)
         if not campo_vazio(pais, 'pais', lista_de_erros):
             campo_tem_numero(pais, 'pais', lista_de_erros)
-        if not campo_vazio(estado, 'estado', lista_de_erros):
-            campo_tem_numero(estado, 'estado', lista_de_erros)
+        # if not campo_vazio(estado, 'estado', lista_de_erros):
+        #     campo_tem_numero(estado, 'estado', lista_de_erros)
         if not campo_vazio(cep, 'cep', lista_de_erros):
             campo_tem_letra(cep, 'cep', lista_de_erros)
         if not campo_vazio(numeroCartao, 'numeroCartao', lista_de_erros):
             campo_tem_letra(numeroCartao, 'numeroCartao', lista_de_erros)
         if not campo_vazio(nomeCartao, 'nomeCartao', lista_de_erros):
             campo_tem_numero(nomeCartao, 'nomeCartao', lista_de_erros)
-        campo_vazio(validadeCartao, 'validadeCartao', lista_de_erros)
+        # campo_vazio(validadeCartao, 'validadeCartao', lista_de_erros)
         # campo_tem_letra(validadeCartao, 'validadeCartao', lista_de_erros)
         if not campo_vazio(segurancaCartao, 'segurancaCartao', lista_de_erros):
             campo_tem_letra(segurancaCartao, 'segurancaCartao', lista_de_erros)
