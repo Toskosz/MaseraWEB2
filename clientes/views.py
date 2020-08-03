@@ -13,6 +13,10 @@ def logout(request):
 
 def login(request):
     nome = str(datetime.now().microsecond)
+    username_ja_existente = User.objects.filter(username=nome).first()
+    while username_ja_existente:
+        nome = str(datetime.now().microsecond)
+        x = User.objects.filter(username=nome).first()
     senha = "123"
     user = User.objects.create_user(username=nome, password=senha)
     user.save()

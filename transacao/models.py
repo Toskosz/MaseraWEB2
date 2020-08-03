@@ -1,5 +1,7 @@
 from django.db import models
-from transacao.estados import Estados
+from transacao.form_choices import Estados
+from transacao.form_choices import mes_choices
+from transacao.form_choices import ano_choices
 
 
 class Transacao(models.Model):
@@ -13,7 +15,8 @@ class Transacao(models.Model):
     cep = models.CharField(max_length=20)
     numeroCartao = models.CharField(max_length=50)
     nomeCartao = models.CharField(max_length=100)
-    validadeCartao = models.CharField(max_length=10)
+    mesValidadeCartao = models.CharField(max_length=5, choices=mes_choices, default=0)
+    anoValidadeCartao = models.CharField(max_length=5, choices=ano_choices, default=0)
     segurancaCartao = models.CharField(max_length=10)
 
     def __str__(self):

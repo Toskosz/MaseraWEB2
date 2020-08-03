@@ -1,5 +1,6 @@
 from django import forms
 from clientes.models import Cliente
+from clientes.validations import *
 from transacao.validations import *
 
 
@@ -21,9 +22,10 @@ class ClienteForms(forms.ModelForm):
             campo_tem_numero(nome, 'nome', lista_de_erros)
         if not campo_vazio(sobrenome, 'sobrenome', lista_de_erros):
             campo_tem_numero(sobrenome, 'sobrenome', lista_de_erros)
-        campo_vazio(email, 'email', lista_de_erros)
+        email_invalido(email, 'email', lista_de_erros)
         if not campo_vazio(cpf, 'cpf', lista_de_erros):
-            campo_tem_letra(cpf, 'cpf', lista_de_erros)
+            # campo_tem_letra(cpf, 'cpf', lista_de_erros)
+            valida_cpf(cpf, 'cpf', lista_de_erros)
         if not campo_vazio(telefone, 'telefone', lista_de_erros):
             campo_tem_letra(telefone, 'telefone', lista_de_erros)
         if lista_de_erros is not None:

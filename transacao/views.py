@@ -73,9 +73,14 @@ def cofirma_compra(request):
                 compra_atual.save()
                 return redirect('finaliza_compra')
         else:
+            compra = atual_compra_pendente(request)
+            itens = list(compra.get_itens_carrinho())
+            total = compra.total
             dados = {
-                'cliente_form': cliente_form,
-                'transacao_form': transacao_form
+                'order': itens,
+                'total': total,
+                'transacao_form': transacao_form,
+                'cliente_form': cliente_form
             }
             return render(request, 'carrinho/checkout.html', dados)
 
@@ -99,9 +104,9 @@ def finaliza_compra(request):
     #     messages.error("Sua transação foi recusada, verifique seus dados de pagamento ou fale com seu banco.")
     #     return redirect('resumo_carrinho')
 
-    ajusta_estoque(list(itens_comprados))
     itens_comprados.update(data_de_compra=datetime.now())
     compra_atual.finalizada = True
+    ajusta_estoque(list(itens_comprados))
     compra_atual.data_de_compra = datetime.now()
     compra_atual.save()
     return redirect('feedback')
@@ -118,11 +123,12 @@ def instancia_transacao(transacao_form):
     cep = transacao_form.cleaned_data.get('cep')
     numeroCartao = transacao_form.cleaned_data.get('numeroCartao')
     nomeCartao = transacao_form.cleaned_data.get('nomeCartao')
-    validadeCartao = transacao_form.cleaned_data.get('validadeCartao')
+    mesValidadeCartao = transacao_form.cleaned_data.get('mesValidadeCartao')
+    anoValidadeCartao = transacao_form.cleaned_data.get('anoValidadeCartao')
     segurancaCartao = transacao_form.cleaned_data.get('segurancaCartao')
     transacao = Transacao.objects.create(transacao_id=transacao_id, endereco=endereco, complemento=complemento, cidade=cidade,
                                          bairro=bairro, pais=pais, estado=estado, cep=cep, numeroCartao=numeroCartao,
-                                         nomeCartao=nomeCartao, validadeCartao=validadeCartao, segurancaCartao=segurancaCartao)
+                                         nomeCartao=nomeCartao, mesValidadeCartao=mesValidadeCartao, anoValidadeCartao=anoValidadeCartao, segurancaCartao=segurancaCartao)
     transacao.save()
     return transacao
 
