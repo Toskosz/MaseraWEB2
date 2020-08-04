@@ -17,8 +17,8 @@ def sobre(request):
 
 
 @login_required()
-def produto(request, produto_id):
-    produto = get_object_or_404(Produto, pk=produto_id)
+def produto(request, produto_nome_url):
+    produto = get_object_or_404(Produto, nome_url=produto_nome_url)
     produto_a_exibir = {
         'produto': produto
     }

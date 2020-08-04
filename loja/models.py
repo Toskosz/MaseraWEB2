@@ -3,6 +3,7 @@ from datetime import datetime
 
 class Produto(models.Model):
     nome_produto = models.CharField(max_length=200)
+    nome_url = models.CharField(max_length=200)
     descricao = models.TextField()
     categoria = models.CharField(max_length=100)
     date_produto = models.DateTimeField(default=datetime.now, blank=True)

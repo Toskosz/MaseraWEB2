@@ -20,7 +20,7 @@
                                     </div>
                                 </div>
                                 {% else %}
-                                <a href="{% url 'produto' produto.id %}">
+                                <a href="{% url 'produto' produto.nome_url %}">
                                     <div>
                                         <img src="{{ produto.foto_produto.url }}" alt="..." class="img-fluid">
                                         <div class="text-center">
